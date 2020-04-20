@@ -37,5 +37,5 @@ def parse_records(database_records):
 
 # class Tweet(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
-#     user = db.Column(db.String(128))
-#     tweet = db.Column(db.String())
+#     user = db.Column(db.String(25))
+#     tweet = db.Column(db.String(144))
