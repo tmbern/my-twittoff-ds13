@@ -35,7 +35,12 @@ def parse_records(database_records):
         parsed_records.append(parsed_record)
     return parsed_records
 
-# class Tweet(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     user = db.Column(db.String(25))
-#     tweet = db.Column(db.String(144))
+class TwitterUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.String(60))
+    # tweet = db.Column(db.String(144))
+
+class Tweets(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    #user = db.Column(db.String(25))
+    tweet = db.Column(db.String(144))
