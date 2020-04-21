@@ -35,12 +35,18 @@ def parse_records(database_records):
         parsed_records.append(parsed_record)
     return parsed_records
 
-class TwitterUser(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.String(60))
+class User(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    screen_name = db.Column(db.String(128), nullable=False)
+    name = db.Column(db.String)
+    location = db.Column(db.String)
+    followers_count = db.Column(db.Integer)
     # tweet = db.Column(db.String(144))
 
-class Tweets(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    #user = db.Column(db.String(25))
-    tweet = db.Column(db.String(144))
+class Tweet(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    user_id = db.Column(db.BigInteger, db.ForeignKey("user.id"))
+    full_text = db.Column(db.String(500))
+    embedding = db.Column(db.PickleType)
+
+    user = db.relationship("User", backref=db.backref("tweets", lazy=True))

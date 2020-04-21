@@ -1,26 +1,26 @@
-<!-- web_app/templates/users.html -->
+<!-- web_app/templates/books.html -->
 
 {% extends "layout.html" %}
 
 {% block title %}
-    <title>Users Page</title>
+    <title>Twitter Users Page</title>
 {% endblock %}
 
 {% block content %}
 
-    <h2>Welcome to the Users Page</h2>
+    <h2>Here are our Twitter Users</h2>
 
     <p>{{ message }}</p>
 
     {% if users %}
         <ul>
         {% for user in users %}
-            <li>{{ user.user }}</li>
+            <li>{{ user.screen_name }}</li>
         {% endfor %}
         </ul>
 
     {% else %}
-        <p>user not found.</p>
+        <p>User not found.</p>
     {% endif %}
 
 {% endblock %}
