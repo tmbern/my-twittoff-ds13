@@ -1,7 +1,7 @@
 # web_app/routes/book_routes.py
 
 from flask import Blueprint, jsonify, request, render_template #, flash, redirect
-from web_app.models import TwitterUser, Tweets
+from web_app.models import TwitterUser, Tweets, db
 
 twitter_routes = Blueprint("twitter_routes", __name__)
 

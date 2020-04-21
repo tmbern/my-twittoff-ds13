@@ -10,6 +10,10 @@ flask = "*"
 flast-sqlalchemy = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
+python-dotenv = "*"
+requests = "*"
+basilica = "*"
+tweepy = "*"
 
 [requires]
 python_version = "3.7"
