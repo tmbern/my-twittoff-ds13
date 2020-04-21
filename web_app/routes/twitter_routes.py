@@ -62,3 +62,10 @@ def user_list():
     user_list = User.query.all()
     print(user_list)
     return render_template("users.html", message="Here are some twitter users", users=user_list)
+
+@twitter_routes.route("/tweets/<screen_name>")
+def users_tweets(screen_name=None):
+    #user_tweets = User.query.filter(User.screen_name == screen_name).all()
+    user_tweets = Tweet.query.filter(User.screen_name == screen_name).all()
+    print(user_tweets)
+    return render_template("tweets.html", message=f"Here are {screen_name} tweets ", tweets=user_tweets)
