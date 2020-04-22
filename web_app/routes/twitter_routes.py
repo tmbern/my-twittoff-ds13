@@ -80,14 +80,15 @@ def users_tweets(screen_name=None):
 def new_user():
     return render_template("new_user.html")
 
+# This gets a Bad Request error... not sure what is going on...
 @twitter_routes.route("/user/create", methods=["POST"])
 def create_user():
     print("FORM DATA:", dict(request.form))
     # todo: store in database
-    twitter_user_name = request.form["screen_name"]
+    print(request.form["screen_name"])
     api = api_client()
-    twitter_user = api.get_user(twitter_user_name)
-    statuses = api.user_timeline(twitter_user_name, tweet_mode="extended", count=150) #, exclude_replies=True, include_rts=False)
+    twitter_user = api.get_user(request.form["screen_name"])
+    statuses = api.user_timeline(request.form["screen_name"], tweet_mode="extended", count=150) #, exclude_replies=True, include_rts=False)
     print("STATUSES COUNT:", len(statuses))
    
     # STORE USER
