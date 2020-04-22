@@ -1,10 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request, redirect
 from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
-from flask import Blueprint, render_template, jsonify, redirect
 from web_app.models import db, User, Tweet, parse_records
 from web_app.services.basilica_service import connection as basilica_connection
-from web_app.models import User
+
 
 stats_routes = Blueprint("stats_routes", __name__)
 
@@ -33,7 +32,7 @@ def twitoff_prediction():
     # labels: screen name for each tweet
 
     user_a = User.query.filter(User.screen_name == screen_name_a).one()
-    user_b = User.query.fitler(User.screen_name == screen_name_b).one()
+    user_b = User.query.filter(User.screen_name == screen_name_b).one()
     user_a_tweets = user_a.tweets
     user_b_tweets = user_b.tweets
 
@@ -44,11 +43,10 @@ def twitoff_prediction():
         embeddings.append(tweet.embedding)
         labels.append(tweet.user.screen_name)
     
-    
     model = LogisticRegression()
     model.fit(embeddings, labels)
 
-    example_embedding = basilica_connection(tweet_text)
+    example_embedding = basilica_connection.embed_sentence(tweet_text, model="twitter")
     results = model.predict([example_embedding])
     screen_name_most_likely = results[0]
 
@@ -60,4 +58,3 @@ def twitoff_prediction():
         screen_name_b=screen_name_b,
         tweet_text=tweet_text,
         screen_name_most_likely=screen_name_most_likely)
-    
