@@ -1,24 +1,23 @@
+<!-- web_app/templates/user.html -->
+
 {% extends "layout.html" %}
 
-{% block title %}
-    <title>Twitter Users Tweets Page</title>
-{% endblock %}
-
 {% block content %}
+    <h2>Twitter User: {{ user.screen_name }} </h2>
 
-    <h2>Here are some tweets</h2>
+    <p>Name: {{ user.name }}</p>
+    <p>Location: {{ user.location }}</p>
+    <p>Followers: {{ user.followers_count }}</p>
 
-    <p>{{ message }}</p>
-
-    {% if user_tweets %}
+    {% if tweets %}
         <ul>
-        {% for tweet in user_tweets %}
+        {% for tweet in tweets %}
             <li>{{ tweet.full_text }}</li>
         {% endfor %}
         </ul>
 
     {% else %}
-        <p>Tweets not found.</p>
+        <p>No tweets found.</p>
     {% endif %}
 
 {% endblock %}

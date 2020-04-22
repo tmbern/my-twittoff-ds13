@@ -7,7 +7,7 @@ from web_app.services.basilica_service import connection as basilica_connection
 
 twitter_routes = Blueprint("twitter_routes", __name__)
 
-@twitter_routes.route("/users/<screen_name>")
+@twitter_routes.route("/users/<screen_name>/fetch")
 def fetch_user_data(screen_name=None):
     print(screen_name)
 
@@ -57,15 +57,21 @@ def fetch_user_data(screen_name=None):
     return redirect(f"/user_list")
     #return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
 
+@twitter_routes.route("/user_list.json")
+def user_list_json():
+    db_users = User.query.all()
+    users_response = parse_records(db_users)
+    return jsonify(users_response)
+
 @twitter_routes.route("/user_list")
 def user_list():
     user_list = User.query.all()
     print(user_list)
     return render_template("users.html", message="Here are some twitter users", users=user_list)
 
-@twitter_routes.route("/tweets/<screen_name>")
+@twitter_routes.route("/users/<screen_name>")
 def users_tweets(screen_name=None):
     #user_tweets = User.query.filter(User.screen_name == screen_name).all()
-    user_tweets = Tweet.query.filter(User.screen_name == screen_name).all()
-    print(user_tweets)
-    return render_template("tweets.html", message=f"Here are {screen_name} tweets ", tweets=user_tweets)
+    db_user = User.query.filter(User.screen_name == screen_name).one()
+    print(screen_name)
+    return render_template("tweets.html", user=db_user, tweets=db_user.tweets)
