@@ -1,5 +1,7 @@
 # twitoff/__init__.py
 
+import os
+from dotenv import load_dotenv
 from flask import Flask
 
 from web_app.models import db, migrate
@@ -10,6 +12,9 @@ from web_app.routes.admin_routes import admin_routes
 from web_app.routes.stats_routes import stats_routes
 
 #DATABASE_URI = "sqlite:///web_app_13.db"
+DATABASE_URI = os.getenv("DATABASE_URL")
+SECRET_KEY = os.getenv("SECRET_KEY", default="super_secret")
+
 # application factory pattern
 def create_app():
     app = Flask(__name__)
