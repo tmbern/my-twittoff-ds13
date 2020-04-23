@@ -11,16 +11,17 @@ from web_app.routes.twitter_routes import twitter_routes
 from web_app.routes.admin_routes import admin_routes
 from web_app.routes.stats_routes import stats_routes
 
+load_dotenv()
 #DATABASE_URI = "sqlite:///web_app_13.db"
-DATABASE_URI = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 SECRET_KEY = os.getenv("SECRET_KEY", default="super_secret")
 
 # application factory pattern
 def create_app():
     app = Flask(__name__)
 
-    #app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
-    app.config["SQLALCHEMY_DATABASE_URI"] ="sqlite://///home/tmbern/workspace/repos/lambda/my-twittoff-ds13/web_app_13.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+    #app.config["SQLALCHEMY_DATABASE_URI"] ="sqlite://///home/tmbern/workspace/repos/lambda/my-twittoff-ds13/web_app_13.db"
     db.init_app(app)
     migrate.init_app(app, db)
 
